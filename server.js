@@ -1,36 +1,16 @@
-var express = require('express');
-var nodeQ = require('./backend/nodeQueries');
+var express = require('express'),
+    bodyParser = require('body-parser');
 
-/* ROUTING */
 var port = process.env.PORT || 8000;
-var router = express.Router();
 
-router.route('/cycle')
-    .get(function (req, res) {
-
-        var handler = function (err, result) {
-            if (err) throw err;
-
-            if (result.rowLength > 0) {
-                return res.json(result);
-            } else {
-                return res.send("No rows found.");
-            }
-        };
-
-        if (req.query.name) {
-            nodeQ.findByName([req.query.name], handler);
-        } else {
-            nodeQ.findAll(handler);
-        }
-
-    });
-
-
-/* Start SERVER */
 var app = express();
-app.use('/api', router);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+/* Routes */
+var nodeRouter = require('./routes/nodeRoutes')();
+app.use('/api/node', nodeRouter);
 
 app.listen(port, function () {
-    console.log('Running on port: ' + port);
+    console.log('Server running on port: ' + port);
 });

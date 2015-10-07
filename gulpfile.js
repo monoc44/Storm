@@ -6,12 +6,14 @@ gulp.task('default', function () {
         script: 'server.js',
         ext: 'js',
         env: {
-            PORT: 8000
+            PORT: 8000,
+            DB_KEYSPACE: 'dev',
+            DB_HOSTS: '127.0.0.1'
         },
         ignore: ['./node_modules/**']
-    })
-        .on('restart', function () {
-            console.log("[GULP] restarting...");
-        })
+    });
+    //.on('restart', function () {
+    //    console.log("[GULP] restarting...");
+    //})
 });
 
