@@ -5,12 +5,21 @@ var routes = function () {
 
     var router = express.Router();
 
+
+    router.use('/:nodeId', function (req, res, next) {
+        nodeQ.findById(req.params.nodeId, function (err, result) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                req.node = result.rows[0];
+                next();
+            }
+        });
+    });
+
     router.route('/:nodeId')
         .get(function (req, res) {
-            nodeQ.findById(req.params.nodeId, function (err, result) {
-                if (err) throw err;
-                return res.json(result.rows[0]);
-            });
+            res.json(req.node);
         })
         .delete(function (req, res) {
             nodeQ.remove(req.params.nodeId, function (err) {
