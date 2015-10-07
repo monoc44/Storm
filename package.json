@@ -9,6 +9,9 @@
   "author": "Frederic Ville",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3"
+    "cassandra-driver": "^2.2.1",
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4"
   }
 }
