@@ -1,0 +1,14 @@
+link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+
+script(type='text/javascript', src='/bower_components/angular/angular.js')
+script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.js')
+script(type='text/javascript', src='/app/app.js')
+
+body(ng-app='app')
+    .container
+        h1 List of nodes
+        div(ng-controller='testCtrl')
+            .list-group
+                a.list-group-item(href='#')(ng-repeat='node in nodes')
+                    h4.list-group-item-heading {{ node.name }}
+                    p.list-group-item-text {{ node.created }}

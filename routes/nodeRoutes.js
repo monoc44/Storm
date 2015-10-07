@@ -34,7 +34,7 @@ var routes = function () {
             var handler = function (err, result) {
                 if (err) throw err;
                 if (result.rowLength > 0) {
-                    return res.json(result);
+                    return res.json(result.rows);
                 } else {
                     return res.sendStatus(404)
                 }
