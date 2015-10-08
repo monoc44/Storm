@@ -1,5 +1,4 @@
-var client = require('./client'),
-    Promise = require('bluebird');
+var client = require('./client');
 
 /* FIND queries */
 var findAll = function () {

@@ -13,6 +13,8 @@ var client = Promise.promisifyAll(new cassandra.Client({
     keyspace: keyspace
 }));
 
+//var connectDB = Promise.promisify(client.connect, client);
+
 module.exports = client;
 
 
