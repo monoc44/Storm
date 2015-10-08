@@ -11,10 +11,6 @@ var client = new cassandra.Client({
     keyspace: keyspace
 });
 
-client.connect(function (err) {
-    throw err;
-});
-
 module.exports = client;
 
 
