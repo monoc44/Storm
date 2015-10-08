@@ -9,6 +9,6 @@ body(ng-app='app')
         h1 List of nodes
         div(ng-controller='testCtrl')
             .list-group
-                a.list-group-item(href='#')(ng-repeat='node in nodes')
+                a.list-group-item(href='/api/node/{{ node.id }}')(ng-repeat='node in nodes')
                     h4.list-group-item-heading {{ node.name }}
                     p.list-group-item-text {{ node.created }}

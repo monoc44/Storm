@@ -5,14 +5,21 @@ var Promise = require('bluebird');
 
 var connectDB = Promise.promisify(client.connect, client);
 
+Promise.onPossiblyUnhandledRejection(function (error) {
+    throw error;
+});
+
 describe("get nodes", function () {
-    it("should not be empty since nodes table are cleared and then seeded", function (done) {
+    it("should not be empty since nodes table is cleared and seeded again", function (done) {
         connectDB()
             .then(nodeQ.clearAll())
             .then(nodeQ.seedsNodes())
-            .then(nodeQ.findAll(function (err, result) {
+            .then(nodeQ.findAll())
+            .then(function (result, err) {
+                console.log(result);
+                console.log(err);
                 expect(result.rows.length).to.be.at.least(1);
                 done();
-            }));
+            });
     });
 });
