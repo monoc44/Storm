@@ -1,6 +1,5 @@
-var cassandra = require('cassandra-driver'),
-    Promise = require("bluebird");
-
+var cassandra = require('cassandra-driver');
+var Promise = require("bluebird");
 
 var hosts = process.env.DB_HOSTS || 'localhost';
 var keyspace = process.env.DB_KEYSPACE || 'dev';
@@ -12,8 +11,6 @@ var client = Promise.promisifyAll(new cassandra.Client({
     contactPoints: [hosts],
     keyspace: keyspace
 }));
-
-//var connectDB = Promise.promisify(client.connect, client);
 
 module.exports = client;
 

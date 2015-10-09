@@ -1,35 +1,29 @@
-var express = require('express'),
-    nodeQ = require('../backend/nodeQueries');
+var express = require('express');
 
-var routes = function () {
+var routes = function (dbClient, app) {
 
     var router = express.Router();
 
-    //router.use('/:nodeId', function (req, res, next) {
-    //    nodeQ.findById(req.params.nodeId)
-    //        .then(function (data) {
-    //            req.nodes = data;
-    //            next();
-    //        });
-    //});
+    var nodeService = require('../backend/node-data')(dbClient);
 
     router.route('/:nodeId')
         .get(function (req, res) {
-            send(res, 200, nodeQ.findById(req.params.nodeId));
+            send(res, 200, nodeService.findById(req.params.nodeId));
         })
         .delete(function (req, res) {
-            send(res, 200, nodeQ.remove(req.params.nodeId));
+            send(res, 200, nodeService.remove(req.params.nodeId));
         });
 
     router.route('/')
         .get(function (req, res) {
-            var promise = req.query.name ? nodeQ.findByName(req.query.name) : nodeQ.findAll();
+            var promise = req.query.name ? nodeService.findByName(req.query.name) : nodeService.findAll();
             send(res, 200, promise);
         })
         .post(function (req, res) {
-            send(res, 201, nodeQ.insert(req.body));
+            send(res, 201, nodeService.insert(req.body));
         });
 
+    app.use('/api/node', router);
     return router;
 };
 
@@ -52,7 +46,6 @@ var send = function (res, status, promise) {
         sendError(res, err);
     });
 };
-
 
 module.exports = routes;
 
